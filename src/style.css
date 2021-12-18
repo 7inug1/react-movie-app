@@ -1,0 +1,372 @@
+/*
+########  ########  ######  ######## ########  ######   ######   ######  
+##     ## ##       ##    ## ##          ##    ##    ## ##    ## ##    ## 
+##     ## ##       ##       ##          ##    ##       ##       ##       
+########  ######    ######  ######      ##    ##        ######   ######  
+##   ##   ##             ## ##          ##    ##             ##       ## 
+##    ##  ##       ##    ## ##          ##    ##    ## ##    ## ##    ## 
+##     ## ########  ######  ########    ##     ######   ######   ######  
+*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+@media only screen {
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol,
+  ul {
+    list-style: none;
+  }
+  blockquote,
+  q {
+    quotes: none;
+  }
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    /* added personally */
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  /* added personally from below */
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  button {
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  label,
+  input[type='radio'],
+  button {
+    cursor: pointer;
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    margin: 0;
+  }
+
+  input[type='text'] {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border: 0 none;
+    box-sizing: border-box;
+    background: transparent;
+  }
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    border: 0 none;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  select {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border: 0 none;
+    box-sizing: border-box;
+  }
+
+  /* for customizing the 'browsing-file' functionality */
+  input[type='file'] {
+    position: absolute;
+    top: -200%;
+    left: -200%;
+    opacity: 0;
+    z-index: -100;
+  }
+
+  strong,
+  .bolder {
+    font-weight: bolder;
+  }
+}
+
+/* 
+#####  ###### #####   ####   ####  #    #   ##   #         #####  ######  ####  ###### #####  ####   ####   ####  
+#    # #      #    # #      #    # ##   #  #  #  #         #    # #      #      #        #   #    # #      #      
+#    # #####  #    #  ####  #    # # #  # #    # #         #    # #####   ####  #####    #   #       ####   ####  
+#####  #      #####       # #    # #  # # ###### #         #####  #           # #        #   #           #      # 
+#      #      #   #  #    # #    # #   ## #    # #         #   #  #      #    # #        #   #    # #    # #    # 
+#      ###### #    #  ####   ####  #    # #    # ######    #    # ######  ####  ######   #    ####   ####   ####  
+*/
+.whitespace-remover {
+  font-size: 0;
+}
+
+table td {
+  vertical-align: top;
+}
+
+#root > .title {
+  font-family: 'Courier New', Courier, monospace;
+  /* font-size: 18px; */
+}
+
+/* -- */
+
+#root {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#root > .content {
+  margin-top: 30px;
+}
+
+body {
+  background: #ecf0f4;
+}
+
+h1.title {
+  font-size: 48px;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 50px;
+  margin-top: 50px;
+}
+
+/* .content  ul > li */
+.panel {
+  /* display: inline-block; */
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  margin: auto;
+}
+
+.panel.v1 {
+  width: 450px;
+  height: 450px;
+}
+
+.movieContainer {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.movieContainer .title {
+  font-size: 25px;
+}
+
+.movieContainer > .content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.movie-grid > li .poster {
+  display: inline-block;
+}
+
+.navigation {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.navigation li {
+  display: inline-block;
+}
+
+.navigation li + li {
+  margin-left: 10px;
+}
+
+.panel > .movieContainer .description {
+  padding-left: 30px;
+}
+
+.panel.v1 > .movieContainer .description {
+  width: 300px;
+}
+
+.movieContainer .description .genre {
+  /* margin-top: 10px; */
+}
+
+.panel .movieContainer .description .rating {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.panel.v1 .movieContainer .description .rating {
+}
+
+.panel.v2 .movieContainer .description .rating {
+}
+
+.movieContainer .description .summary {
+  margin-top: 20px;
+}
+
+.movieContainer .description .title {
+  font-size: 24px;
+  color: #2c2c2c;
+}
+
+.movieContainer .description .genre li {
+  display: inline-block;
+  border: 2px solid #2c2c2c;
+  /* border-radius: 16px; */
+  padding: 4px 12px 8px 12px;
+}
+
+.movieContainer .description .genre li:not(:last-of-type) {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.no-movies-page {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.no-movies-page p {
+  font-size: 25px;
+}
+
+.no-movies-page img {
+  margin-top: 30px;
+}
+
+.dim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: rgba(0, 0, 0, 0.3);
+}
