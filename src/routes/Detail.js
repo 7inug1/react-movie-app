@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import BeatLoader from 'react-spinners/BeatLoader';
+
+const loader_css = `
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+  margin-top: 25px;
+`;
 
 const Detail = () => {
   const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState([]);
+  const [color, setColor] = useState('#000000');
 
   const { id } = useParams();
   const getMovie = async () => {
@@ -22,7 +31,14 @@ const Detail = () => {
   return (
     <div className="content">
       {loading ? (
-        <h1>Loading...</h1>
+        <div className="sweet-loading">
+        <BeatLoader
+          color={color}
+          loading={loading}
+          css={loader_css}
+          size={20}
+        />
+      </div>
       ) : (
         <div className="panel v2">
           <div className="movieContainer">
@@ -40,8 +56,8 @@ const Detail = () => {
                     return <li key={index}>{genre}</li>;
                   })}
                 </ul>
-                <span className="rating">
-                  IMDB rating: {movie.data.movie.rating}
+                <span className="rating">    
+                  ⭐ {movie.data.movie.rating}
                 </span>
 
                 <p className="summary">{movie.data.movie.description_intro}</p>
