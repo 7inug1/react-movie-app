@@ -15,6 +15,8 @@ let clickedButton = undefined;
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+  const [genre,setGenre] = useState('')
+  const [rating,setRating] = useState(0)
   const [color, setColor] = useState('#000000');
   const genresArray = [
     'Action',
@@ -27,7 +29,7 @@ const Home = () => {
     'Drama',
     'Family',
     'Fantasy',
-    'Film Noir',
+    'Film-Noir',
     'History',
     'Horror',
     'Music',
@@ -42,66 +44,60 @@ const Home = () => {
     'War',
     'Western',
   ];
+  let ratingValueArray = [1,2,3,4,5,6,7,8,9];
 
-  const applyBoldText = (event) => {
-    if (clickedButton) clickedButton.style.fontWeight = 'normal';
-    clickedButton = event.target;
-    clickedButton.style.fontWeight = 'bolder';
+  // const applyBoldText = (event) => {
+  //   if (clickedButton) clickedButton.style.fontWeight = 'normal';
+  //   clickedButton = event.target;
+  //   clickedButton.style.fontWeight = 'bolder';
+  // };
+
+  const getMovies = async () => {
+    console.log(genre)
+    console.log(rating)
+    const genreFilter=`genre=${genre}`;
+    const ratingFilter=`&minimum_rating=${rating}`;
+    setLoading(true);
+
+    const json = await (
+      await fetch(
+        `https://yts.mx/api/v2/list_movies.json?
+        ${genreFilter}
+        ${ratingFilter}
+        `
+      )
+    ).json();
+    setMovies(json.data.movies);
+    setLoading(false);
   };
 
-  const getMovies = async (filter) => {
-    console.log(filter)
-    console.log(typeof(filter))
+  // const populateRating = () =>{
+  //   for(let i = 1; i <= ratingValueArray.length; i++){
 
-    if (genre !== filter) {
-      genre = filter;
-
-      setLoading(true);
-      const json = await (
-        await fetch(
-          // minimum_rating=9
-          `https://yts.mx/api/v2/list_movies.json?${
-            typeof(filter)==="string" && `&genre=${filter}`
-        }
-            ${typeof(filter)==="number" && `&minimum_rating=${filter}`
-            
-
-
-            // filter ? `&genre=${filter}` : ''
-          }`
-        )
-      ).json();
-
-      setMovies(json.data.movies);
-
-      setLoading(false);
-    }
-  };
+  //   }
+  // }
 
   useEffect(() => {
     getMovies();
-  }, []);
+  }, [genre, rating]);
 
   return (
     <div>
       {loading ? <div className="dim"></div> : ''}
-      <ul className="navigation">
-        <select 
-        onChange={(event) => getMovies(Number(event.target.value))}
-        title="Choose a rating please.">
-          <option selected disabled hidden>Choose rating!</option>
-          <option key="9" value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐</option>
-          <option key="8" value="8">⭐⭐⭐⭐⭐⭐⭐⭐</option>
-          <option key="7" value="7">⭐⭐⭐⭐⭐⭐⭐</option>
-          <option key="6" value="6">⭐⭐⭐⭐⭐⭐</option>
-          <option key="5" value="5">⭐⭐⭐⭐⭐</option>
-          <option key="4" value="4">⭐⭐⭐⭐</option>
-          <option key="3" value="3">⭐⭐⭐</option>
-          <option key="2" value="2">⭐⭐</option>
-          <option key="1" value="1">⭐</option>
+      <div className='navigation'>
+      <select 
+        onChange={(event) => setRating(event.target.value)}
+        title="Choose a rating please."
+      >
+        <option selected disabled hidden>Choose rating!</option>
+        {ratingValueArray.reverse().map((value,index)=>{
+          return(
+            <option key={value} value={value}>{"⭐".repeat(value)}</option>
+          )
+        })}
         </select>
         <select
-          onChange={(event) => getMovies(event.target.value)}
+          onChange={(event) => setGenre(event.target.value)}
           title="Choose a genre please."
         >
           <option key="all" value="all">
@@ -115,6 +111,11 @@ const Home = () => {
             );
           })}
         </select>
+      </div>
+
+      {/* Button Navigation */}
+      {/* <ul className="navigation">
+        
 
         <li key="all">
           <button
@@ -141,7 +142,7 @@ const Home = () => {
             </li>
           );
         })}
-      </ul>
+      </ul> */}
       <div className="content">
         {loading ? (
           <div className="sweet-loading">
