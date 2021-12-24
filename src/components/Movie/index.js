@@ -1,11 +1,24 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import styledComponent from 'styled-components'
 
 const Movie = ({ id, coverImg, rating, title, summary, genres }) => {
+  const [movieSaveToggle, setMovieSaveToggle] = useState(false)
+  
+  // const saveMovieToLocalStorage = async() =>{
+  //   if(movieSaveToggle){
+  //     console.log("true")
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   saveMovieToLocalStorage();
+  // }, [movieSaveToggle])
   // console.log(genres);
   return (
     <li className="panel v1">
-      <Link to={`/movie/${id}`} className="movieContainer">
+      <Link to={`/movie/${id}`} className="movieContainer" style={{ position: 'relative', zIndex: '1' }}>
         <h2 className="title">{title}</h2>
         <div className="content">
           <div className="poster">
@@ -18,9 +31,13 @@ const Movie = ({ id, coverImg, rating, title, summary, genres }) => {
               ))}
             </ul>
             <span className="rating">⭐ {rating}</span>
-            <p className="summary">
+            <button className="saveButton" 
+            // onClick={setMovieSaveToggle()}
+            >save</button>
+            <Summary>
               {summary.length < 255 ? summary : `${summary.slice(0, 255)}...`}
-            </p>
+            </Summary>
+
           </div>
         </div>
       </Link>
@@ -28,33 +45,9 @@ const Movie = ({ id, coverImg, rating, title, summary, genres }) => {
   );
 };
 
-// function Movie({ id, coverImg, title, summary, genres }) {
-//   return (
-//     <li className="panel v1">
-//       <Link to={`/movie/${id}`} className="movieContainer">
-//         <div className="poster">
-//           <img src={coverImg} alt={title} />
-//         </div>
-//         <div className="description">
-//           <h2 className="title">
-//             {/* <a href="/movie"> */}
-
-//             {title}
-//             {/* </a> */}
-//           </h2>
-//           <ul className="genre">
-//             {genres.map((genre) => (
-//               <li key={genre}>{genre}</li>
-//             ))}
-//           </ul>
-//           <p className="summary">
-//             {summary.length < 255 ? summary : `${summary.slice(0, 255)}...`}
-//           </p>
-//         </div>
-//       </Link>
-//     </li>
-//   );
-// }
+const Summary = styledComponent.p`
+  margin-top: 20px;
+`;
 
 Movie.propTypes = {
   id: PropTypes.number.isRequired,

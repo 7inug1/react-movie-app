@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import Movie from '../components/Movie/index';
 import BeatLoader from 'react-spinners/BeatLoader';
+import styledComponent from 'styled-components'
 
-const loader_css = `
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  margin-top: 25px;
-`;
+
+
+
 
 let genre = '';
 let clickedButton = undefined;
@@ -46,12 +44,6 @@ const Home = () => {
   ];
   let ratingValueArray = [1,2,3,4,5,6,7,8,9];
 
-  // const applyBoldText = (event) => {
-  //   if (clickedButton) clickedButton.style.fontWeight = 'normal';
-  //   clickedButton = event.target;
-  //   clickedButton.style.fontWeight = 'bolder';
-  // };
-
   const getMovies = async () => {
     console.log(genre)
     console.log(rating)
@@ -71,20 +63,20 @@ const Home = () => {
     setLoading(false);
   };
 
-  // const populateRating = () =>{
-  //   for(let i = 1; i <= ratingValueArray.length; i++){
-
-  //   }
-  // }
-
   useEffect(() => {
     getMovies();
   }, [genre, rating]);
 
   return (
     <div>
-      {loading ? <div className="dim"></div> : ''}
-      <div className='navigation'>
+      <Wrapper>
+        <Title>
+          Hello World!
+        </Title>
+      </Wrapper>
+      {loading ? <Dim></Dim> : ''}
+      <Navigation>
+      {/* <div className='navigation'> */}
       <select 
         onChange={(event) => setRating(event.target.value)}
         title="Choose a rating please."
@@ -111,41 +103,14 @@ const Home = () => {
             );
           })}
         </select>
-      </div>
+      {/* </div> */}
+      </Navigation>
 
-      {/* Button Navigation */}
-      {/* <ul className="navigation">
-        
-
-        <li key="all">
-          <button
-            onClick={(event) => {
-              applyBoldText(event);
-              getMovies();
-            }}
-          >
-            All
-          </button>
-        </li>
-        {genresArray.map((genre) => {
-          return (
-            <li key={genre}>
-              <button
-                onClick={(event) => {
-                  applyBoldText(event);
-
-                  getMovies(genre);
-                }}
-              >
-                {genre}
-              </button>
-            </li>
-          );
-        })}
-      </ul> */}
+      
       <div className="content">
         {loading ? (
           <div className="sweet-loading">
+
             <BeatLoader
               color={color}
               loading={loading}
@@ -188,4 +153,34 @@ const Home = () => {
   );
 };
 
+const loader_css = `
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+  margin-top: 25px;
+`;
+
+const Dim = styledComponent.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: rgba(0, 0, 0, 0.3);
+`;
+
+const Navigation = styledComponent.div`
+  text-align: center;
+  margin-top: 25px;
+`;
+
+const Title = styledComponent.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
+
+const Wrapper = styledComponent.section`
+  background: papayawhip;
+`;
 export default Home;
