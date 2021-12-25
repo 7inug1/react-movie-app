@@ -25,12 +25,19 @@ const Movie = ({ id, coverImg, rating, title, summary, genres }) => {
             <img src={coverImg} alt={title} />
           </div>
           <div className="description">
-            <ul className="genre">
-              {genres.map((genre) => (
-                <li key={genre}>{genre}</li>
-              ))}
-            </ul>
-            <span className="rating">⭐ {rating}</span>
+            <Description>
+
+            {/* <ul className="genre"> */}
+              <Genre>
+                {genres.map((genre) => (
+                  <li key={genre}>{genre}</li>
+                ))}
+              </Genre>
+            </Description>
+            {/* </ul> */}
+            <Rating>
+              ⭐ {rating}
+            </Rating>
             <button className="saveButton" 
             // onClick={setMovieSaveToggle()}
             >save</button>
@@ -44,6 +51,17 @@ const Movie = ({ id, coverImg, rating, title, summary, genres }) => {
     </li>
   );
 };
+
+const Description = `
+  padding-left: 30px;
+`;
+const Genre= styledComponent.ul`
+`;
+const Rating = styledComponent.span`
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 18px;
+`;
 
 const Summary = styledComponent.p`
   margin-top: 20px;

@@ -304,29 +304,22 @@ h1.title {
   margin-left: 10px;
 }
 
-.panel > .movieContainer .description {
+/* .panel > .movieContainer .description {
   padding-left: 30px;
-}
+} */
 
 .panel.v1 > .movieContainer .description {
   width: 300px;
 }
 
-.movieContainer .description .genre {
-  /* margin-top: 10px; */
-}
 
-.panel .movieContainer .description .rating {
+
+/* .panel .movieContainer .description .rating {
   display: inline-block;
   margin-top: 10px;
   font-size: 18px;
-}
+} */
 
-.panel.v1 .movieContainer .description .rating {
-}
-
-.panel.v2 .movieContainer .description .rating {
-}
 
 /* .movieContainer .description .summary {
   margin-top: 20px;

@@ -41,41 +41,42 @@ const Detail = () => {
         </div>
       ) : (
         <div>
-        <button className="back-button" onClick={pageGoBack}>Go Back</button>
+        <BackButton onClick={pageGoBack}>Go Back</BackButton>
         <div className="panel v2">
-          <div className="movieContainer">
+          <movieContainer>
             {(movie.data.movie.id===0)?
             (<UnavailablePage></UnavailablePage>):
             (
             <div>
-            <h2 className="title">
+            <Title>
               {movie.data.movie.title_long}
-            </h2>
-            <div className="content">
-              <div className="poster">
-                <img
+            </Title>
+            <Content>
+              <Poster>
+                <Img
                   src={movie.data.movie.medium_cover_image}
                   alt={movie.data.movie.slug}
                 />
-              </div>
-              <div className="description">
-                <ul className="genre">
+              </Poster>
+              <Description>
+                <Genre>
                   {movie.data.movie.genres.map((genre, index) => {
                     return <li key={index}>{genre}</li>;
                   })}
-                </ul>
-                <span className="rating">    
+                </Genre>
+                <Rating> 
                   ⭐ {movie.data.movie.rating}
-                </span>
-                  <Summary>
-                    {movie.data.movie.description_intro}
-                  </Summary>
-              </div>
+                </Rating>
+                <Summary>
+                  {movie.data.movie.description_intro}
+                </Summary>
+              </Description>
+            </Content>
             </div>
-            </div>)
+            )
             }
 
-          </div>
+          </movieContainer>
         </div>
         </div>
       )}
@@ -88,6 +89,45 @@ const loader_css = `
   margin: 0 auto;
   border-color: red;
   margin-top: 25px;
+`;
+
+const BackButton = styledComponent.button`
+`;
+
+const panel = styledComponent.div`
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  margin: auto;
+`;
+
+const movieContainer = styledComponent.div`
+`
+
+const Poster = styledComponent.div`
+`
+
+const Img = styledComponent.img`
+`;
+
+const Title = styledComponent.h2`
+font-size: 24px;
+color: #2c2c2c;
+`;
+const Content = styledComponent.div`
+`;
+
+const Description = styledComponent.div`
+  padding-left: 30px;
+  width: 300px;
+`;
+const Genre= styledComponent.ul`
+`;
+const Rating= styledComponent.span`
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 18px;
 `;
 
 const Summary = styledComponent.p`
