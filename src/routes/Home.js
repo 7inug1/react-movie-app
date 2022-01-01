@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import Movie from '../components/Movie/index';
 import BeatLoader from 'react-spinners/BeatLoader';
-import styledComponent from 'styled-components'
-
-
-
-
+import styled from 'styled-components'
 
 let genre = '';
 let clickedButton = undefined;
@@ -13,8 +9,8 @@ let clickedButton = undefined;
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
-  const [genre,setGenre] = useState('')
-  const [rating,setRating] = useState(0)
+  const [genre, setGenre] = useState('')
+  const [rating, setRating] = useState(0)
   const [color, setColor] = useState('#000000');
   const genresArray = [
     'Action',
@@ -43,14 +39,14 @@ const Home = () => {
     'Western',
   ];
   let ratingValueArray = [1,2,3,4,5,6,7,8,9];
+  
+  useEffect(() => {
+    getMovies();
+  }, [genre, rating]);
 
   const getMovies = async () => {
-    console.log(genre)
-    console.log(rating)
     const genreFilter=`genre=${genre}`;
     const ratingFilter=`&minimum_rating=${rating}`;
-    setLoading(true);
-
     const json = await (
       await fetch(
         `https://yts.mx/api/v2/list_movies.json?
@@ -59,29 +55,22 @@ const Home = () => {
         `
       )
     ).json();
+
+    setLoading(true);
     setMovies(json.data.movies);
     setLoading(false);
   };
 
-  useEffect(() => {
-    getMovies();
-  }, [genre, rating]);
-
   return (
     <div>
-      <Wrapper>
-        <Title>
-          Hello World!
-        </Title>
-      </Wrapper>
-      {loading ? <Dim></Dim> : ''}
+      {loading ? <Dim/> : ''}
       <Navigation>
       {/* <div className='navigation'> */}
       <select 
         onChange={(event) => setRating(event.target.value)}
         title="Choose a rating please."
       >
-        <option selected disabled hidden>Choose rating!</option>
+        <option  disabled hidden>Choose rating!</option>
         {ratingValueArray.reverse().map((value,index)=>{
           return(
             <option key={value} value={value}>{"⭐".repeat(value)}</option>
@@ -114,7 +103,10 @@ const Home = () => {
             <BeatLoader
               color={color}
               loading={loading}
-              css={loader_css}
+              css={`display: block;
+                margin: 0 auto;
+                border-color: red;
+                margin-top: 25px;`}
               size={20}
             />
           </div>
@@ -123,16 +115,18 @@ const Home = () => {
             <ul className={movies ? 'movie-grid' : 'no-movies-page'}>
               {movies &&
                 movies.map((movie) => (
-                  <Movie
-                    key={movie.id}
-                    id={movie.id}
-                    coverImg={movie.medium_cover_image}
-                    title={movie.title_long}
-                    rating={movie.rating}
-                    summary={movie.summary}
-                    genres={movie.genres}
+                  <Movie 
+                    // key={movie.id}
+                    // id={movie.id}
+                    // coverImg={movie.medium_cover_image}
+                    {...movie}
+                    // title={movie.title_long}
+                    // rating={movie.rating}
+                    // summary={movie.summary}
+                    // genres={movie.genres}
                   />
-                ))}
+                ))
+                }
               {!movies && (
                 <div>
                   <p>
@@ -153,14 +147,7 @@ const Home = () => {
   );
 };
 
-const loader_css = `
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  margin-top: 25px;
-`;
-
-const Dim = styledComponent.div`
+const Dim = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -169,18 +156,18 @@ const Dim = styledComponent.div`
   background: rgba(0, 0, 0, 0.3);
 `;
 
-const Navigation = styledComponent.div`
+const Navigation = styled.div`
   text-align: center;
   margin-top: 25px;
 `;
 
-const Title = styledComponent.h1`
+const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
   color: palevioletred;
 `;
 
-const Wrapper = styledComponent.section`
+const Wrapper = styled.section`
   background: papayawhip;
 `;
 export default Home;

@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
 import UnavailablePage from '../components/Movie/UnavailablePage';
-import styledComponent from 'styled-components';
+import styled from 'styled-components';
 
 const Detail = () => {
   const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState([]);
-  const [color, setColor] = useState('#000000');
 
   const { id } = useParams();
 
@@ -33,9 +32,11 @@ const Detail = () => {
       {loading ? (
         <div className="sweet-loading">
           <BeatLoader
-            color={color}
-            loading={loading}
-            css={loader_css}
+            css={`
+            display: block;
+            margin: 0 auto;
+            margin-top: 25px;
+          `}
             size={20}
           />
         </div>
@@ -43,40 +44,40 @@ const Detail = () => {
         <div>
         <BackButton onClick={pageGoBack}>Go Back</BackButton>
         <div className="panel v2">
-          <movieContainer>
+          <MovieContainer>
             {(movie.data.movie.id===0)?
             (<UnavailablePage></UnavailablePage>):
             (
             <div>
-            <Title>
-              {movie.data.movie.title_long}
-            </Title>
-            <Content>
-              <Poster>
-                <Img
-                  src={movie.data.movie.medium_cover_image}
-                  alt={movie.data.movie.slug}
-                />
-              </Poster>
-              <Description>
-                <Genre>
-                  {movie.data.movie.genres.map((genre, index) => {
-                    return <li key={index}>{genre}</li>;
-                  })}
-                </Genre>
-                <Rating> 
-                  ⭐ {movie.data.movie.rating}
-                </Rating>
-                <Summary>
-                  {movie.data.movie.description_intro}
-                </Summary>
-              </Description>
-            </Content>
+              <Title>
+                {movie.data.movie.title_long}
+              </Title>
+              <Content>
+                <Poster>
+                  <Img
+                    src={movie.data.movie.medium_cover_image}
+                    alt={movie.data.movie.slug}
+                  />
+                </Poster>
+                <Description>
+                  <Genre>
+                    {movie.data.movie.genres.map((genre, index) => {
+                      return <li key={index}>{genre}</li>;
+                    })}
+                  </Genre>
+                  <Rating> 
+                    ⭐ {movie.data.movie.rating}
+                  </Rating>
+                  <Summary>
+                    {movie.data.movie.description_intro}
+                  </Summary>
+                </Description>
+              </Content>
             </div>
             )
             }
 
-          </movieContainer>
+          </MovieContainer>
         </div>
         </div>
       )}
@@ -84,17 +85,10 @@ const Detail = () => {
   );
 };
 
-const loader_css = `
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  margin-top: 25px;
+const BackButton = styled.button`
 `;
 
-const BackButton = styledComponent.button`
-`;
-
-const panel = styledComponent.div`
+const panel = styled.div`
   background: #fff;
   padding: 30px;
   box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
@@ -102,35 +96,35 @@ const panel = styledComponent.div`
   margin: auto;
 `;
 
-const movieContainer = styledComponent.div`
+const MovieContainer = styled.div`
 `
 
-const Poster = styledComponent.div`
+const Poster = styled.div`
 `
 
-const Img = styledComponent.img`
+const Img = styled.img`
 `;
 
-const Title = styledComponent.h2`
+const Title = styled.h2`
 font-size: 24px;
 color: #2c2c2c;
 `;
-const Content = styledComponent.div`
+const Content = styled.div`
 `;
 
-const Description = styledComponent.div`
+const Description = styled.div`
   padding-left: 30px;
   width: 300px;
 `;
-const Genre= styledComponent.ul`
+const Genre= styled.ul`
 `;
-const Rating= styledComponent.span`
+const Rating= styled.span`
   display: inline-block;
   margin-top: 10px;
   font-size: 18px;
 `;
 
-const Summary = styledComponent.p`
+const Summary = styled.p`
   margin-top: 20px;
 `;
 
